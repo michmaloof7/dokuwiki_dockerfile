@@ -8,6 +8,8 @@ RUN apt-get install -y wget
 RUN wget https://download.dokuwiki.org/out/dokuwiki-8a269cc015a64b40e4c918699f1e1142.tgz
 RUN tar -xzf ./dokuwiki-8a269cc015a64b40e4c918699f1e1142.tgz
 RUN rm dokuwiki-8a269cc015a64b40e4c918699f1e1142.tgz
-COPY --chown=www-data ./dokuwiki /var/www/html/
+WORKDIR /var/www/html
+RUN cp -R /dokuwiki/* .
+RUN chown -R www-data:www-data *
 RUN rm /var/www/html/index.html
 CMD apache2ctl -D FOREGROUND
